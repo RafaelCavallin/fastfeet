@@ -21,5 +21,3 @@ class App {
 }
 
 export default new App().server;
-
-// Middleware de autenticação
