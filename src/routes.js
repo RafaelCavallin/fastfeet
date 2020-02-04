@@ -28,5 +28,8 @@ routes.delete('/recipients/:id', RecipientController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
+routes.get('/deliveryman', DeliveryManController.index);
 routes.post('/deliveryman', DeliveryManController.store);
+routes.put('/deliveryman/:id', DeliveryManController.update);
+routes.delete('/deliveryman/:id', DeliveryManController.delete);
 export default routes;
