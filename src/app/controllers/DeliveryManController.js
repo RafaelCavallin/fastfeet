@@ -38,9 +38,9 @@ class DeliveryManController {
       return res.status(400).json({ error: 'Deliveryman already exists' });
     }
 
-    const { name, avatar_id, email } = await DeliveryMan.create(req.body);
+    const { id, name, avatar_id, email } = await DeliveryMan.create(req.body);
 
-    return res.status(200).json({ name, avatar_id, email });
+    return res.status(200).json({ id, name, avatar_id, email });
   }
 
   async update(req, res) {

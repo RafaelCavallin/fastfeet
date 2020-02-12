@@ -116,6 +116,8 @@ class OrderController {
       return res.status(400).json({ error: 'Order does not exists.' });
     }
 
+    // Validar se end_date é < que start_date
+
     const { start_date } = req.body;
     const parseStartDate = getHours(parseISO(start_date));
 
