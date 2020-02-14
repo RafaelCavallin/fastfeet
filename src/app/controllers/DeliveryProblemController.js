@@ -1,6 +1,16 @@
+import DeliveryProblem from '../models/DeliveryProblem';
+
 class DeliveryProblemController {
   async store(req, res) {
-    return res.status(200).json(req.params.id);
+    const delivery_id = req.params.id;
+    const { description } = req.body;
+
+    const problem = await DeliveryProblem.create({
+      delivery_id,
+      description,
+    });
+
+    return res.status(200).json(problem);
   }
 }
 

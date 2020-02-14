@@ -6,7 +6,8 @@ import Recipient from '../models/Recipient';
 import DeliveryMan from '../models/DeliveryMan';
 import File from '../models/File';
 
-import Mail from '../../lib/Mail';
+import NotificationMail from '../jobs/NotificationMail';
+import Queue from '../../lib/Queue';
 
 class OrderController {
   async show(req, res) {
@@ -80,17 +81,10 @@ class OrderController {
 
     const recipient = await DeliveryMan.findByPk(req.body.recipient_id);
 
-    // implementar jobs
-    await Mail.sendMail({
-      to: `${deliveryman.name} <${deliveryman.email}>`,
-      subject: 'Nova encomenda disponível.',
-      template: 'notification',
-      context: {
-        deliveryman: deliveryman.name,
-        order: order.id,
-        recipient: recipient.name,
-        product: order.product,
-      },
+    await Queue.add(NotificationMail.key, {
+      deliveryman,
+      recipient,
+      order,
     });
 
     return res.status(200).json(order);

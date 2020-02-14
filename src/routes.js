@@ -10,6 +10,8 @@ import DeliveryManController from './app/controllers/DeliveryManController';
 import OrderController from './app/controllers/OrderController';
 import DeliveryController from './app/controllers/DeliveryController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
+import OrderProblemController from './app/controllers/OrderProblemController';
+import ProblemPerOrderController from './app/controllers/ProblemPerOrder';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -46,5 +48,8 @@ routes.get('/orders/:id', OrderController.show);
 routes.post('/orders', OrderController.store);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
+
+routes.get('/orders/problem', OrderProblemController.index);
+routes.get('/delivery/:id/problems', ProblemPerOrderController.index);
 
 export default routes;
