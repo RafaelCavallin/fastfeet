@@ -1,6 +1,12 @@
+import Order from '../models/Order';
+
 class OrderProblemController {
   async index(req, res) {
-    return res.status(200).json({});
+    const orders = await Order.findAll({
+      include: { association: 'problems' },
+    });
+
+    return res.status(200).json(orders);
   }
 }
 

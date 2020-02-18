@@ -43,13 +43,18 @@ routes.post('/deliveryman', DeliveryManController.store);
 routes.put('/deliveryman/:id', DeliveryManController.update);
 routes.delete('/deliveryman/:id', DeliveryManController.delete);
 
+routes.get('/orders/problem', OrderProblemController.index);
+
 routes.get('/orders', OrderController.index);
 routes.get('/orders/:id', OrderController.show);
 routes.post('/orders', OrderController.store);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
 
-routes.get('/orders/problem', OrderProblemController.index);
 routes.get('/delivery/:id/problems', ProblemPerOrderController.index);
+routes.delete(
+  '/problem/:id_problem/cancel-delivery',
+  DeliveryProblemController.delete
+);
 
 export default routes;
