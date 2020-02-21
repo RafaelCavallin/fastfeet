@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize';
 import * as Yup from 'yup';
 import { parseISO, getHours } from 'date-fns';
 
@@ -40,7 +41,14 @@ class OrderController {
   }
 
   async index(req, res) {
+    const whereStatement = {};
+
+    const { Op } = Sequelize;
+
+    whereStatement.product = { [Op.iLike]: `%${req.query.q}%` };
+
     const orders = await Order.findAll({
+      where: whereStatement,
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
       include: [
         {
@@ -60,7 +68,7 @@ class OrderController {
         },
       ],
     });
-    // fazer paginação.
+
     return res.status(200).json(orders);
   }
 

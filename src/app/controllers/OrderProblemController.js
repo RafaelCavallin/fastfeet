@@ -6,7 +6,9 @@ class OrderProblemController {
       include: { association: 'problems' },
     });
 
-    return res.status(200).json(orders);
+    const ordersWithProblems = orders.filter(order => order.problems.length);
+
+    return res.status(200).json(ordersWithProblems);
   }
 }
 

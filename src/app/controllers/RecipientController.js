@@ -1,8 +1,32 @@
+import Sequelize from 'sequelize';
 import * as Yup from 'yup';
 
 import Recipient from '../models/Recipient';
 
 class RecipientController {
+  async index(req, res) {
+    const whereStatement = {};
+
+    const { Op } = Sequelize;
+
+    whereStatement.name = { [Op.iLike]: `%${req.query.q}%` };
+
+    const recipients = await Recipient.findAll({
+      where: whereStatement,
+      attributes: [
+        'name',
+        'street',
+        'number',
+        'complement',
+        'city',
+        'state',
+        'zip_code',
+      ],
+    });
+
+    return res.status(200).json(recipients);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -31,22 +55,6 @@ class RecipientController {
     return res
       .status(200)
       .json({ name, street, number, complement, city, state, zip_code });
-  }
-
-  async index(req, res) {
-    const recipients = await Recipient.findAll({
-      attributes: [
-        'name',
-        'street',
-        'number',
-        'complement',
-        'city',
-        'state',
-        'zip_code',
-      ],
-    });
-
-    return res.status(200).json(recipients);
   }
 
   async show(req, res) {
