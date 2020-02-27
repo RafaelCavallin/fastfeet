@@ -2,7 +2,7 @@ import Mail from '../../lib/Mail';
 
 class CancellationMail {
   get key() {
-    return 'NotificationMail';
+    return 'CancellationMail';
   }
 
   async handle({ data }) {
@@ -11,7 +11,7 @@ class CancellationMail {
     await Mail.sendMail({
       to: `${deliveryman.name} <${deliveryman.email}>`,
       subject: 'Encomenda cancelada',
-      template: 'cancelation',
+      template: 'cancellation',
       context: {
         deliveryman: deliveryman.name,
         order: order.id,

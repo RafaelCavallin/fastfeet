@@ -31,14 +31,6 @@ class DeliveryProblemController {
 
     const order = await Order.findByPk(problem.delivery_id);
 
-    const deliveryman = await DeliveryMan.findByPk(order.deliveryman_id);
-
-    // Sending a cancellation email.
-    await Queue.add(CancellationMail.key, {
-      deliveryman,
-      order,
-    });
-
     if (order.end_date !== null) {
       return res.status(400).json({ error: 'Order already delivered.' });
     }
@@ -50,6 +42,14 @@ class DeliveryProblemController {
     order.canceled_at = new Date();
 
     await order.save();
+
+    const deliveryman = await DeliveryMan.findByPk(order.deliveryman_id);
+
+    // Sending a cancellation email.
+    await Queue.add(CancellationMail.key, {
+      deliveryman,
+      order,
+    });
 
     return res.status(200).json(order);
   }
