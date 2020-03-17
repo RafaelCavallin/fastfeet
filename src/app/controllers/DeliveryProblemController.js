@@ -6,6 +6,14 @@ import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
+  async index(req, res) {
+    const problems = await DeliveryProblem.findAll({
+      attributes: ['id', 'delivery_id', 'description'],
+    });
+
+    return res.status(200).json(problems);
+  }
+
   async store(req, res) {
     const delivery_id = req.params.id;
     const { description } = req.body;

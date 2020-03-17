@@ -54,7 +54,7 @@ class OrderController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'name'],
+          attributes: ['id', 'name', 'city', 'state'],
         },
         {
           model: DeliveryMan,

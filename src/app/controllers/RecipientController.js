@@ -14,6 +14,7 @@ class RecipientController {
     const recipients = await Recipient.findAll({
       where: whereStatement,
       attributes: [
+        'id',
         'name',
         'street',
         'number',
