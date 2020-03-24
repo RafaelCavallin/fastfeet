@@ -4,7 +4,16 @@
 # Desafio bootcamp Rocketseat
 
 
-##### Código referente ao backend do desafio Fast Feet da Rocketseat.
+##### Code referring to the backend of the Rocketseat Fast Feet challenge.
 
 
 
+### Installation
+
+##### Install node modules.
+> yarn install
+
+##### Start server on port 3333
+> yarn dev
+
+##### To access localhost:3333
